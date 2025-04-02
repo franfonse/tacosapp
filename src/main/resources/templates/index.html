@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tacos App</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+    <body>
+        <div class="welcome-popup">
+            <h1>Welcome to the Tacos App!</h1>
+            <p>Press continue to order</p>
+
+            <a th:href="@{/signUser}" class="order-button">Continue to Menu</a>
+        </div>
+    </body>
+</html>
