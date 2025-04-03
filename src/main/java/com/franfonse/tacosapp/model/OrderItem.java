@@ -20,12 +20,15 @@ public class OrderItem {
 
     private int quantity;
 
+    private double totalPrice;
+
     public OrderItem() {}
 
     public OrderItem(Order order, MenuItem menuItem, int quantity) {
         this.order = order;
         this.menuItem = menuItem;
         this.quantity = quantity;
+        this.totalPrice = menuItem.getPrice() * quantity;
     }
 
     public Long getId() {
@@ -58,5 +61,11 @@ public class OrderItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

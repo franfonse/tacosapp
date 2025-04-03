@@ -10,14 +10,21 @@
 <div class="user-sign">
   <h1>First, let's sign you in/up</h1>
 
-  <form th:action="@{/user}" method="post">
-
+  <form th:action="@{/user/signUser}" method="get">
     <label for="username">Username</label>
-      <input type="text" id="username" name="username" required>
-      <label for="name">Name (optional)</label>
-      <input type="text" id="name" name="name">
+    <input type="text" id="username" name="username" required>
+
+    <!-- Show error message if username is invalid -->
+    <div th:if="${errorMessage}" class="error-message">
+      <p th:text="${errorMessage}"></p>
+    </div>
+
+<!--    <label for="name">Name (optional)</label>-->
+<!--    <input type="text" id="name" name="name">-->
+
     <button type="submit" class="btn-submit">Sign in/up</button>
   </form>
+
 </div>
 </body>
 </html>

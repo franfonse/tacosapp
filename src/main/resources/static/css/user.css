@@ -1,4 +1,6 @@
 .user-sign {
+    width: 450px;
+    height: auto;
     max-width: 600px;
     margin: 0 auto;
     padding: 2rem;
@@ -52,4 +54,9 @@ form input {
 
 .btn-submit:hover {
     background: #218838;
+}
+
+.error-message p {
+    color: red;
+    font-size: 0.8rem;
 }

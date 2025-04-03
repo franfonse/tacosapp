@@ -7,6 +7,27 @@
     <link rel="stylesheet" th:href="@{/css/orders.css}">
 </head>
 <body>
-<h1>Orders works!</h1>
+
+<div class="container">
+    <header>
+        <h1>Welcome, <span th:text="${user.username}"></span>!</h1>
+        <a href="/order/newOrder" class="new-order-button">+ New Order</a>
+    </header>
+
+    <h2>Your Orders</h2>
+    <div class="orders-container">
+        <div class="order-card" th:each="order : ${orders}">
+            <div class="order-info">
+                <p class="order-date" th:text="${order.createdAt}"></p>
+                <p class="order-total" th:text="'Total: $' + ${order.totalPrice}"></p>
+            </div>
+            <div class="order-actions">
+                <a th:href="@{/orders/view/{id}(id=${order.id})}" class="view-button">View</a>
+                <a th:href="@{/orders/delete/{id}(id=${order.id})}" class="delete-button">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
