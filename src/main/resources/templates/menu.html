@@ -3,28 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Tacos App</title>
-  <link rel="stylesheet" th:href="@{/css/styles.css}">
-  <link rel="stylesheet" th:href="@{/css/menu.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/menu.css}">
 </head>
 <body>
-<h1>Menu</h1>
+<div class="main-container">
+    <h1>Menu</h1>
 
-<form action="/orders/confirmOrder" method="post">
-    <input type="hidden" name="userId"/>
+    <form action="/orders/confirmOrder" method="post">
+        <input type="hidden" name="userId"/>
 
-    <div th:each="item : ${menuItems}">
-        <h2 th:text="${item.name}"></h2>
-        <p>Category: <span th:text="${item.category.name}"></span></p>
-        <p>Price: $<span th:text="${item.price}"></span></p>
-        <label>
-            Quantity:
-            <input type="number" name="quantities" min="0" value="0"/>
-        </label>
-        <input type="hidden" name="menuItemIds" th:value="${item.id}"/>
-        <hr>
-    </div>
+        <div th:each="entry : ${menuItemsByCategory}">
+            <section class="category-section">
+                <h2 class="category-title" th:text="${entry.key}">Category</h2>
+                <div class="card-container">
+                    <div class="menu-card" th:each="item : ${entry.value}">
+                        <div>
+                            <h3 th:text="${item.name}">Item Name</h3>
+                            <p>Price: $<span th:text="${item.price}">0.00</span></p>
+                        </div>
+                        <div class="quantity-section">
+                            <label>Qty:
+                                <input type="number" name="quantities" min="0" value="0"/>
+                            </label>
+                            <input type="hidden" name="menuItemIds" th:value="${item.id}"/>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-    <button type="submit">Place Order</button>
-</form>
+        <button type="submit">Place Order</button>
+    </form>
+</div>
 </body>
 </html>

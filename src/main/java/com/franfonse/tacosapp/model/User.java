@@ -17,12 +17,13 @@ public class User {
     private String username;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orders = new ArrayList<>();
+    private List<Order> orders;
 
     public User() {}
 
     public User(String username) {
         this.username = username;
+        this.orders = new ArrayList<>();
     }
 
     public Long getId() {
@@ -37,16 +38,21 @@ public class User {
         return username;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public void addOrder(Order order) {
+        orders.add(order);
+        order.setUser(this);
     }
 
 }

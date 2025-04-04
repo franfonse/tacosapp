@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/order")
@@ -31,20 +33,24 @@ public class OrderController {
     }
 
     @GetMapping("/newOrder")
-    public String newOrder(Model model) {
+    public String newOrder(@RequestParam String username, Model model) {
 
-//        User user = userService.findByUsername(username).orElse(null);
-//
-//        if (user == null) {
-//            model.addAttribute("errorMessage", "User not found");
-//            return "not-found";
-//        }
+        User user = userService.findByUsername(username).orElse(null);
+
+        if (user == null) {
+            model.addAttribute("errorMessage", "User not found");
+            return "not-found";
+        }
 
         Order order = new Order();
         model.addAttribute("order", order);
 
         List<MenuItem> menuItems = menuItemService.getAllMenuItems();
-        model.addAttribute("menuItems", menuItems);
+        // Group by category
+        Map<String, List<MenuItem>> itemsByCategory = menuItems.stream()
+                .collect(Collectors.groupingBy(item -> item.getCategory().getName()));
+
+        model.addAttribute("menuItemsByCategory", itemsByCategory);
 
         return "menu";
     }

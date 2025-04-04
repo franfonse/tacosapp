@@ -23,14 +23,15 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 
-    private double totalOrder;
+    private double totalCost;
 
-    public Order() {}
+    public Order() {
+    }
 
     public Order(User user) {
         this.user = user;
         this.date = new Date();
-        this.totalOrder = 0;
+        this.totalCost = 0;
         this.orderItems = new ArrayList<>();
     }
 
@@ -65,10 +66,12 @@ public class Order {
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
+
     public double getTotalOrder() {
-        return totalOrder;
+        return totalCost;
     }
-    public void setTotalOrder(double totalOrder) {
-        this.totalOrder = totalOrder;
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
     }
 }

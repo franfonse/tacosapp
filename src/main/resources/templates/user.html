@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Tacos App</title>
-  <link rel="stylesheet" th:href="@{/css/styles.css}">
-  <link rel="stylesheet" th:href="@{/css/user.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/user.css}">
 </head>
 <body>
-<div class="user-sign">
-  <h1>First, let's sign you in/up</h1>
+<div class="main-container">
+    <div class="user-sign">
+        <h1>First, let's sign you in/up</h1>
 
-  <form th:action="@{/user/signUser}" method="get">
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" required>
+        <form th:action="@{/user/signUser}" method="get">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
 
-    <!-- Show error message if username is invalid -->
-    <div th:if="${errorMessage}" class="error-message">
-      <p th:text="${errorMessage}"></p>
+            <!-- Show error message if username is invalid -->
+            <div th:if="${errorMessage}" class="error-message">
+                <p th:text="${errorMessage}"></p>
+            </div>
+
+            <!--    <label for="name">Name (optional)</label>-->
+            <!--    <input type="text" id="name" name="name">-->
+
+            <button type="submit" class="btn-submit">Sign in/up</button>
+        </form>
     </div>
-
-<!--    <label for="name">Name (optional)</label>-->
-<!--    <input type="text" id="name" name="name">-->
-
-    <button type="submit" class="btn-submit">Sign in/up</button>
-  </form>
-
 </div>
 </body>
 </html>
