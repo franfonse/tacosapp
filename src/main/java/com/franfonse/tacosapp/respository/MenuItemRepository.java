@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface MenuItemRepository extends JpaRepository<MenuItem, Long> {
     List<MenuItem> findByCategory(Category category);
+    List<MenuItem> findByCategoryIdOrderByName(Long categoryId);
 }
