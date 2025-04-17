@@ -27,7 +27,6 @@
                     <p th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 2)}"></p>
                     <!-- Add more item details here if needed -->
                 </div>
-
             </div>
         </div>
     </div>
@@ -37,6 +36,7 @@
         <div class="popup-content">
             <span class="close-btn">X</span>
             <div id="popup-item-details"></div>
+            <input type="number" class="quantity-input" min="1" max="100" value="1" />
         </div>
     </div>
 

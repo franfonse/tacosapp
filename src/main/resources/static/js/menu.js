@@ -28,6 +28,7 @@ function openPopup(content) {
 
     // Prevent body scrolling when popup is open
     document.body.style.overflow = 'hidden';
+
 }
 
 function closePopup() {

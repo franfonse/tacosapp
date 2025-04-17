@@ -1,7 +1,6 @@
 package com.franfonse.tacosapp.model;
 
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,11 +47,6 @@ public class User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
-    }
-
-    public void addOrder(Order order) {
-        orders.add(order);
-        order.setUser(this);
     }
 
 }

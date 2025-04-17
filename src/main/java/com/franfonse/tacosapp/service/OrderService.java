@@ -18,10 +18,10 @@ public class OrderService {
         this.userService = userService;
     }
 
-    public void addOrderToUser(String username, Order order) {
+    public void addOrderToUserList(String username, Order order) {
         User user = userService.findByUsername(username).orElse(null);
         if (user != null) {
-            user.addOrder(order);
+            order.setUser(user);
             orderRepository.save(order);
         }
     }

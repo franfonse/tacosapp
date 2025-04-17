@@ -12,9 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/order")
@@ -42,6 +40,7 @@ public class OrderController {
         }
 
         Order order = new Order();
+        order.setUser(user);
         model.addAttribute("order", order);
 
         List<MenuItem> menuItems = menuItemService.getAllMenuItems();
@@ -53,9 +52,9 @@ public class OrderController {
         }
 
         for (int i = 0; i < priorityCategory.size(); i++) {
-            for (int j = 0; j < menuItems.size(); j++) {
-                if (priorityCategory.get(i) == menuItems.get(j).getCategory().getId().intValue()) {
-                    sortedMenuItems.get(i).add(menuItems.get(j));
+            for (MenuItem menuItem : menuItems) {
+                if (priorityCategory.get(i) == menuItem.getCategory().getId().intValue()) {
+                    sortedMenuItems.get(i).add(menuItem);
                 }
             }
         }
