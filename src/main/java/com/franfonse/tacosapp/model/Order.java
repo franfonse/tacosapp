@@ -23,6 +23,8 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 
+    private boolean status;
+
     private double totalCost;
 
     public Order() {
@@ -32,6 +34,7 @@ public class Order {
         this.user = user;
         this.date = new Date();
         this.totalCost = 0;
+        this.status = false;
         this.orderItems = new ArrayList<>();
     }
 
@@ -67,7 +70,15 @@ public class Order {
         this.orderItems = orderItems;
     }
 
-    public double getTotalOrder() {
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public double getTotalCost() {
         return totalCost;
     }
 

@@ -5,9 +5,17 @@
     <title>Tacos App</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/menu.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script th:src="@{/js/menu.js}" defer></script>
 </head>
 <div class="main-container">
+
+    <div class="cart-icon-container">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-counter" id="cart-counter" th:text="${totalItems}"></span>
+    </div>
+
+    <input type="hidden" id="orderId" th:value="${order.id}">
 
     <h1 class="menu-title">Menu</h1>
 
@@ -21,24 +29,35 @@
             <div th:each="item : ${entry}" class="menu-card">
                 <h3 th:text="${item.name}" class="menu-item-name"></h3>
                 <p th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 2)}" class="menu-item-price"></p>
+                <div class="item-details" style="display: none;" th:attr="data-item-id=${item.id}">
 
-                <div class="item-details" style="display: none;">
-                    <h3 th:text="${item.name}"></h3>
-                    <p th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 2)}"></p>
-                    <!-- Add more item details here if needed -->
+                    <div class="item-details" style="display: none;">
+                        <h3 th:text="${item.name}"></h3>
+                        <p th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 2)}"></p>
+                        <!-- Add more item details here if needed -->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- The popup overlay -->
-    <div id="popup-overlay" class="popup-overlay">
-        <div class="popup-content">
-            <span class="close-btn">X</span>
-            <div id="popup-item-details"></div>
-            <input type="number" class="quantity-input" min="1" max="100" value="1" />
+        <!-- The popup overlay -->
+        <div id="popup-overlay" class="popup-overlay">
+            <div class="popup-content">
+                <span class="close-btn">X</span>
+                <div id="popup-item-details"></div>
+
+                <form th:action="@{/order/addItemToOrder}" method="post">
+                    <input type="hidden" id="popup-order-id" name="orderId" th:value="${order.id}">
+                    <input type="hidden" id="popup-item-id" name="menuItemId">
+                    <div class="quantity-controls">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" class="quantity-input" min="1" max="100" value="1">
+                        <p id="total-price">Total: $0.00</p>
+                    </div>
+                    <button id="add-to-cart" class="add-to-cart-btn" type="submit">Add to Cart</button>
+                </form>
+            </div>
         </div>
     </div>
-
 </div>
 </html>
