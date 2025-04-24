@@ -11,7 +11,9 @@
 <div class="main-container">
 
     <div class="cart-icon-container">
-        <i class="fas fa-shopping-cart"></i>
+        <a th:href="@{/order/viewOrder(orderId=${order.id})}">
+            <i class="fas fa-shopping-cart"></i>
+        </a>
         <span class="cart-counter" id="cart-counter" th:text="${totalItems}"></span>
     </div>
 

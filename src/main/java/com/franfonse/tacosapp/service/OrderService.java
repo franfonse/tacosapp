@@ -3,6 +3,7 @@ package com.franfonse.tacosapp.service;
 import com.franfonse.tacosapp.model.Order;
 import com.franfonse.tacosapp.model.User;
 import com.franfonse.tacosapp.respository.OrderRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +20,22 @@ public class OrderService {
     }
 
     public void addOrderToUserList(String username, Order order) {
-        User user = userService.findByUsername(username).orElse(null);
-        if (user != null) {
-            order.setUser(user);
-            orderRepository.save(order);
-        }
+        User user = userService.findByUsername(username).orElseThrow(() ->
+                new EntityNotFoundException("User not found. USERNAME: " + username));
+
+        order.setUser(user);
+        orderRepository.save(order);
     }
 
+    public void saveOrder(Order order) {
+        orderRepository.save(order);
+    }
+
+    public Order findOrderById(Long orderId) {
+        return orderRepository.findById(orderId).orElse(null);
+    }
+
+    public void deleteOrderById(Long orderId) {
+        orderRepository.deleteById(orderId);
+    }
 }

@@ -11,9 +11,4 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/user")
-    public String signUser() {
-        return "user";
-    }
-
 }

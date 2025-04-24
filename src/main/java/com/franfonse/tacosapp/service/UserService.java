@@ -4,6 +4,7 @@ import com.franfonse.tacosapp.model.User;
 import com.franfonse.tacosapp.respository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.Optional;
 
@@ -25,9 +26,11 @@ public class UserService {
         return userRepository.findByUsername(username).orElseGet(() -> userRepository.save(new User(username)));
     }
 
-    public String sanitizeUsername(String username) {
-        return username.toLowerCase();
+    public boolean validateUsernameFormat(String username) {
+        return username.length() <= 60 && !username.contains(" ") && !Character.isDigit(username.charAt(0));
     }
 
-
+    public String sanitizeUsername(String username){
+        return username.toLowerCase();
+    }
 }

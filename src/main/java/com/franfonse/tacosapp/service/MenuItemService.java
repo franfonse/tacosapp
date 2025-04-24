@@ -2,6 +2,7 @@ package com.franfonse.tacosapp.service;
 
 import com.franfonse.tacosapp.model.MenuItem;
 import com.franfonse.tacosapp.respository.MenuItemRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -22,6 +23,11 @@ public class MenuItemService {
 
     public List<MenuItem> getAllMenuItems() {
         return menuItemRepository.findAll();
+    }
+
+    public MenuItem findMenuItemById(Long menuItemId) {
+        return menuItemRepository.findById(menuItemId).orElseThrow(() ->
+                new EntityNotFoundException("Menu item not found. ID: " + menuItemId));
     }
 
     public List<List<MenuItem>> getSortedMenuItems() {

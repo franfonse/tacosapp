@@ -23,16 +23,12 @@ public class OrderController {
     private final OrderService orderService;
     private final UserService userService;
     private final MenuItemService menuItemService;
-    private final OrderRepository orderRepository;
-    private final MenuItemRepository menuItemRepository;
 
     @Autowired
-    public OrderController(OrderService orderService, UserService userService, MenuItemService menuItemService, OrderRepository orderRepository, MenuItemRepository menuItemRepository) {
+    public OrderController(OrderService orderService, UserService userService, MenuItemService menuItemService) {
         this.orderService = orderService;
         this.userService = userService;
         this.menuItemService = menuItemService;
-        this.orderRepository = orderRepository;
-        this.menuItemRepository = menuItemRepository;
     }
 
     @GetMapping("/newOrder")
@@ -46,7 +42,7 @@ public class OrderController {
         }
 
         Order order = new Order(user);
-        orderRepository.save(order);
+        orderService.saveOrder(order);
 
         model.addAttribute("order", order);
         model.addAttribute("sortedMenuItems", menuItemService.getSortedMenuItems());
@@ -58,8 +54,8 @@ public class OrderController {
     @PostMapping("/addItemToOrder")
     public String addItemToOrder(@RequestParam Long orderId, @RequestParam Long menuItemId, @RequestParam int quantity, Model model) {
 
-        Order order = orderRepository.findById(orderId).orElse(null);
-        MenuItem menuItem = menuItemRepository.findById(menuItemId).orElse(null);
+        Order order = orderService.findOrderById(orderId);
+        MenuItem menuItem = menuItemService.findMenuItemById(menuItemId);
 
         if (order == null || menuItem == null) {
             model.addAttribute("errorMessage", "Order or Menu Item not found");
@@ -93,7 +89,7 @@ public class OrderController {
                 .mapToInt(OrderItem::getQuantity)
                 .sum();
 
-        orderRepository.save(order);
+        orderService.saveOrder(order);
 
         model.addAttribute("sortedMenuItems", menuItemService.getSortedMenuItems());
         model.addAttribute("order", order);
@@ -101,6 +97,34 @@ public class OrderController {
 
         return "menu";
 
+    }
+
+    @GetMapping("/viewOrder")
+    public String viewOrder(@RequestParam Long orderId, Model model) {
+
+        Order order = orderService.findOrderById(orderId);
+
+        if (order == null) {
+            model.addAttribute("errorMessage", "Order not found. ID: " + orderId);
+            return "not-found";
+        }
+
+        List<OrderItem> orderItems = order.getOrderItems();
+
+        model.addAttribute("orderItems", orderItems);
+        model.addAttribute("order", order);
+        return "order";
+    }
+
+    @DeleteMapping("/deleteOrder")
+    public String deleteOrder(@RequestParam Long orderId, Model model) {
+        Order order = orderService.findOrderById(orderId);
+        if (order == null) {
+            model.addAttribute("errorMessage", "Order not found. ID " + orderId);
+            return "not-found";
+        }
+        orderService.deleteOrderById(orderId);
+        return "orders";
     }
 
 }

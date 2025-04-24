@@ -3,10 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Tacos App</title>
-  <link rel="stylesheet" th:href="@{/css/styles.css}">
-  <link rel="stylesheet" th:href="@{/css/order.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/order.css}">
+    <script th:src="@{/js/order.js}" defer></script>
 </head>
 <body>
+<div class="main-container">
+    <h2>Your order on <span th:text="${#dates.format(order.date, 'MMMM d, yyyy')}"></span></h2>
 
+    <div class="order-list">
+        <div class="order-item" th:each="item : ${orderItems}"
+             th:data-item-id="${item.id}"
+             th:data-item-name="${item.menuItem.name}"
+             th:data-item-quantity="${item.quantity}">
+
+            <div class="item-info">
+                <h4 th:text="${item.menuItem.name}"></h4>
+                <p>Quantity: <span th:text="${item.quantity}"></span></p>
+                <p>Price each: $<span th:text="${#numbers.formatDecimal(item.menuItem.price,1,2)}"></span></p>
+                <p>Total: $<span th:text="${#numbers.formatDecimal(item.totalPrice,1,2)}"></span></p>
+            </div>
+
+            <div class="item-actions">
+                <button class="edit-btn">Edit quantity</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+        </div>
+        <div th:if=""></div>
+    </div>
+
+    <!-- Delete confirmation popup -->
+    <div id="delete-popup" class="popup-overlay">
+        <div class="popup-content">
+            <p>Are you sure you want to delete <strong><span id="delete-item-name"></span></strong>?</p>
+            <button id="confirm-delete">Delete</button>
+            <button id="cancel-delete">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Edit quantity popup -->
+    <div id="edit-popup" class="popup-overlay">
+        <div class="popup-content">
+            <h3>Edit Quantity for <span id="edit-item-name"></span></h3>
+            <form id="edit-form" th:action="@{/orderItem/updateQuantity}" method="post">
+                <input type="hidden" name="_method" value="put">
+                <input type="hidden" id="edit-item-id" name="orderItemId">
+                <label for="edit-quantity">Quantity:</label>
+                <input type="number" id="edit-quantity" name="quantity" min="1" max="100" value="1">
+                <div class="popup-buttons">
+                    <button type="submit">Update</button>
+                    <button type="button" id="cancel-edit">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
