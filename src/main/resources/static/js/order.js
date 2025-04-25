@@ -9,6 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', e => {
             selectedItemEl = e.target.closest('.order-item');
             selectedItemId = selectedItemEl.getAttribute('data-item-id');
+            document.getElementById('delete-item-id').value = selectedItemId;
             document.getElementById('delete-item-name').textContent = selectedItemEl.getAttribute('data-item-name');
             deletePopup.style.display = 'flex';
         });
@@ -17,22 +18,6 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById('cancel-delete').addEventListener('click', () => {
         deletePopup.style.display = 'none';
         selectedItemId = null;
-    });
-
-    document.getElementById('confirm-delete').addEventListener('click', () => {
-        fetch(`/orderItem/delete?orderItemId=${selectedItemId}`, {
-            method: 'DELETE'
-        }).then(response => {
-            if (response.ok) {
-                selectedItemEl.remove();
-            } else {
-                alert('Error deleting item');
-            }
-            deletePopup.style.display = 'none';
-        }).catch(err => {
-            console.error(err);
-            deletePopup.style.display = 'none';
-        });
     });
 
     // Edit quantity flow

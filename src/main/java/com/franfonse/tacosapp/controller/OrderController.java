@@ -4,8 +4,6 @@ import com.franfonse.tacosapp.model.MenuItem;
 import com.franfonse.tacosapp.model.Order;
 import com.franfonse.tacosapp.model.OrderItem;
 import com.franfonse.tacosapp.model.User;
-import com.franfonse.tacosapp.respository.MenuItemRepository;
-import com.franfonse.tacosapp.respository.OrderRepository;
 import com.franfonse.tacosapp.service.MenuItemService;
 import com.franfonse.tacosapp.service.OrderService;
 import com.franfonse.tacosapp.service.UserService;
@@ -13,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-import java.util.*;
 
 @Controller
 @RequestMapping("/order")
@@ -31,10 +29,10 @@ public class OrderController {
         this.menuItemService = menuItemService;
     }
 
-    @GetMapping("/newOrder")
-    public String newOrder(@RequestParam String username, Model model) {
+    @GetMapping("/new")
+    public String newOrder(@RequestParam Long userId, Model model) {
 
-        User user = userService.findByUsername(username).orElse(null);
+        User user = userService.findUserById(userId);
 
         if (user == null) {
             model.addAttribute("errorMessage", "User not found");
@@ -46,12 +44,11 @@ public class OrderController {
 
         model.addAttribute("order", order);
         model.addAttribute("sortedMenuItems", menuItemService.getSortedMenuItems());
-        model.addAttribute("totalItems", 0);
 
         return "menu";
     }
 
-    @PostMapping("/addItemToOrder")
+    @PostMapping("/add-item")
     public String addItemToOrder(@RequestParam Long orderId, @RequestParam Long menuItemId, @RequestParam int quantity, Model model) {
 
         Order order = orderService.findOrderById(orderId);
@@ -99,7 +96,18 @@ public class OrderController {
 
     }
 
-    @GetMapping("/viewOrder")
+    @GetMapping("/add-items")
+    public String addMoreItems(@RequestParam Long orderId, Model model) {
+        Order order = orderService.findOrderById(orderId);
+        User user = userService.findUserById(order.getUser().getId());
+
+        model.addAttribute("sortedMenuItems", menuItemService.getSortedMenuItems());
+        model.addAttribute("order", order);
+
+        return "menu";
+    }
+
+    @GetMapping("/view")
     public String viewOrder(@RequestParam Long orderId, Model model) {
 
         Order order = orderService.findOrderById(orderId);
@@ -116,14 +124,18 @@ public class OrderController {
         return "order";
     }
 
-    @DeleteMapping("/deleteOrder")
+    @GetMapping("/delete")
     public String deleteOrder(@RequestParam Long orderId, Model model) {
         Order order = orderService.findOrderById(orderId);
+
         if (order == null) {
             model.addAttribute("errorMessage", "Order not found. ID " + orderId);
             return "not-found";
         }
-        orderService.deleteOrderById(orderId);
+
+        orderService.deleteOrder(order);
+        model.addAttribute("user", order.getUser());
+
         return "orders";
     }
 

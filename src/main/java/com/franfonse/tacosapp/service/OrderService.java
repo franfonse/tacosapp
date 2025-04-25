@@ -2,10 +2,13 @@ package com.franfonse.tacosapp.service;
 
 import com.franfonse.tacosapp.model.Order;
 import com.franfonse.tacosapp.model.User;
+import com.franfonse.tacosapp.respository.OrderItemRepository;
 import com.franfonse.tacosapp.respository.OrderRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -35,7 +38,7 @@ public class OrderService {
         return orderRepository.findById(orderId).orElse(null);
     }
 
-    public void deleteOrderById(Long orderId) {
-        orderRepository.deleteById(orderId);
+    public void deleteOrder(Order order) {
+        orderRepository.delete(order);
     }
 }

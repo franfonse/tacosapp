@@ -5,6 +5,24 @@
     font-family: Arial, sans-serif;
 }
 
+.add-items-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 1001;
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 8px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.add-items-button:hover {
+    background-color: #0056b3;
+}
+
 .order-list {
     margin-top: 20px;
 }

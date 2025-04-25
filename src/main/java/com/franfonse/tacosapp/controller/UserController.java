@@ -20,12 +20,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
+    @GetMapping("/")
     public String signUser() {
         return "user";
     }
 
-    @GetMapping("/signUser")
+    @GetMapping("/sign")
     public String signUser(@RequestParam String username, Model model) {
 
         if (!userService.validateUsernameFormat(username)) {
@@ -39,7 +39,14 @@ public class UserController {
         User user = userService.findOrCreateUsername(username);
         // Add user and orders to the model
         model.addAttribute("user", user);
-        model.addAttribute("orders", user.getOrders());
+
+        return "orders";
+    }
+
+    @GetMapping("/view-orders")
+    public String viewOrders(@RequestParam Long userId, Model model) {
+        User user = userService.findUserById(userId);
+        model.addAttribute("user", user);
 
         return "orders";
     }
