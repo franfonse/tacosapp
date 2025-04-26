@@ -1,26 +1,36 @@
+nav {
+    width: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+nav .btn {
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+nav .btn:hover {
+    background-color: #0056b3;
+}
+
 .main-container {
     width: 80%;
     margin: 40px auto;
     padding: 20px;
     font-family: Arial, sans-serif;
-}
-
-.add-items-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    cursor: pointer;
-    z-index: 1001;
-    text-decoration: none;
-    background-color: #007bff;
-    color: white;
-    padding: 8px 8px;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-.add-items-button:hover {
-    background-color: #0056b3;
 }
 
 .order-list {

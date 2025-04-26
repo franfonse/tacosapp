@@ -7,23 +7,25 @@
     <link rel="stylesheet" th:href="@{/css/orders.css}">
 </head>
 <body>
+<nav>
+    <a th:href="@{/user/logout}" class="btn">Log out</a>
+    <a th:href="@{/order/new(userId=${user.getId()})}" class="new-order-button">+ New Order</a>
+</nav>
 <div class="main-container">
     <div class="container">
         <header>
-            <h1>Orders by <span th:text="${user.username}"></span></h1>
-            <a th:href="@{/order/new(userId=${user.getId()})}" class="new-order-button">+ New Order</a>
+            <h1>Orders by <span th:text="${user.getUsername()}"></span></h1>
         </header>
-
-        <h2>Your Orders</h2>
         <div class="orders-container">
-            <div class="order-card" th:each="order : ${user.getOrders()}">
+            <div th:each="order : ${user.getOrders()}" class="order-card" th:classappend="${!order.getStatus()} ? 'closed'">
                 <div class="order-info">
-                    <p class="order-date" th:text="${order.date}"></p>
-                    <p class="order-total" th:text="'Total: $' + ${order.totalCost}"></p>
+                    <p class="order-date" th:text="${#dates.format(order.date, 'MMMM d, yyyy - h:mm a')}"></p>
+                    <p class="order-total" th:text="'Total: $' + ${#numbers.formatDecimal(order.getTotalCost(), 1, 2)}"></p>
                 </div>
                 <div class="order-actions">
-                    <a th:href="@{/order/view(orderId=${order.id})}" class="view-button">View</a>
-                    <a th:href="@{/order/delete(orderId=${order.id})}" class="delete-button">Delete</a>
+                    <a th:if="${order.getStatus()}" th:href="@{/order/view(orderId=${order.getId()})}" class="view-button">View</a>
+                    <a th:if="${!order.getStatus()}" th:href="@{/order/invoice(orderId=${order.getId()})}" class="invoice-button">Invoice</a>
+                    <a th:href="@{/order/delete(orderId=${order.getId()})}" class="delete-button">Delete</a>
                 </div>
             </div>
         </div>

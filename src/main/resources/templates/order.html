@@ -8,21 +8,25 @@
     <script th:src="@{/js/order.js}" defer></script>
 </head>
 <body>
+<nav>
+    <a th:href="@{/order/view-all(userId=${order.getUser().getId()})}" class="btn">Orders</a>
+    <a th:href="@{/order/add-items(orderId=${order.getId()})}" class="btn add-items-button">Add more menu items +</a>
+    <a id="checkout-button" class="btn checkout-button">Checkout</a>
+</nav>
 <div class="main-container">
-    <a th:href="@{/order/add-items(orderId=${order.getId()})}" class="add-items-button">Add more menu items +</a>
-    <h2>Your order created on <span th:text="${#dates.format(order.date, 'MMMM d, yyyy')}"></span> at <span th:text="${#dates.format(order.date, 'h:mm a')}"></span></h2>
+    <h2>Your order created on <span th:text="${#dates.format(order.date, 'MMMM d, yyyy')}"></span> at <span th:text="${#dates.format(order.getDate(), 'h:mm a')}"></span></h2>
 
     <div class="order-list">
         <div class="order-item" th:each="item : ${order.getOrderItems()}"
-             th:data-item-id="${item.id}"
-             th:data-item-name="${item.menuItem.name}"
-             th:data-item-quantity="${item.quantity}">
+             th:data-item-id="${item.getId()}"
+             th:data-item-name="${item.getMenuItem().getName()}"
+             th:data-item-quantity="${item.getQuantity()}">
 
             <div class="item-info">
-                <h4 th:text="${item.menuItem.name}"></h4>
-                <p>Quantity: <span th:text="${item.quantity}"></span></p>
-                <p>Price each: $<span th:text="${#numbers.formatDecimal(item.menuItem.price, 1, 2)}"></span></p>
-                <p>Total: $<span th:text="${#numbers.formatDecimal(item.totalPrice, 1, 2)}"></span></p>
+                <h4 th:text="${item.getMenuItem().getName()}"></h4>
+                <p>Quantity: <span th:text="${item.getQuantity()}"></span></p>
+                <p>Price each: $<span th:text="${#numbers.formatDecimal(item.getMenuItem().getPrice(), 1, 2)}"></span></p>
+                <p>Total: $<span th:text="${#numbers.formatDecimal(item.getTotalPrice(), 1, 2)}"></span></p>
             </div>
 
             <div class="item-actions">
@@ -32,7 +36,7 @@
 
         </div>
         <div class="order-total">
-            <p>Total: $<span th:text="${#numbers.formatDecimal(order.totalCost, 1, 2)}"></span></p>
+            <p>Total: $<span th:text="${#numbers.formatDecimal(order.getTotalCost(), 1, 2)}"></span></p>
         </div>
     </div>
 
@@ -63,6 +67,26 @@
             </form>
         </div>
     </div>
+
+    <!-- Checkout confirmation popup -->
+    <div id="checkout-popup" class="popup-overlay">
+        <div class="popup-content">
+            <p>Ready to order?</p>
+            <form th:action="@{/order/checkout}" method="post">
+                <input type="hidden" name="orderId"
+                       th:value="${order.getId()}">
+                <div class="popup-buttons">
+                    <button type="submit" id="confirm-checkout">
+                        Order
+                    </button>
+                    <button type="button" id="cancel-checkout">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>

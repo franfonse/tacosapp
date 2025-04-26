@@ -43,11 +43,9 @@ public class UserController {
         return "orders";
     }
 
-    @GetMapping("/view-orders")
-    public String viewOrders(@RequestParam Long userId, Model model) {
-        User user = userService.findUserById(userId);
-        model.addAttribute("user", user);
-
-        return "orders";
+    @GetMapping("/logout")
+    public String logout() {
+        return "user";
     }
+
 }

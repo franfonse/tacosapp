@@ -117,9 +117,6 @@ public class OrderController {
             return "not-found";
         }
 
-        List<OrderItem> orderItems = order.getOrderItems();
-
-        model.addAttribute("orderItems", orderItems);
         model.addAttribute("order", order);
         return "order";
     }
@@ -135,6 +132,44 @@ public class OrderController {
 
         orderService.deleteOrder(order);
         model.addAttribute("user", order.getUser());
+
+        return "orders";
+    }
+
+    @PostMapping("/checkout")
+    public String checkoutOrder(@RequestParam Long orderId, Model model) {
+        Order order = orderService.findOrderById(orderId);
+
+        if (order == null) {
+            model.addAttribute("errorMessage", "Order not found. ID: " + orderId);
+            return "not-found";
+        }
+
+        order = orderService.checkoutOrder(order);
+
+        model.addAttribute("order", order);
+
+        return "invoice";
+    }
+
+    @GetMapping("/invoice")
+    public String viewInvoice(@RequestParam Long orderId, Model model) {
+
+        Order order = orderService.findOrderById(orderId);
+
+        if (order == null) {
+            model.addAttribute("errorMessage", "Order not found. ID: " + orderId);
+            return "not-found";
+        }
+
+        model.addAttribute("order", order);
+        return "invoice";
+    }
+
+    @GetMapping("/view-all")
+    public String viewOrders(@RequestParam Long userId, Model model) {
+        User user = userService.findUserById(userId);
+        model.addAttribute("user", user);
 
         return "orders";
     }

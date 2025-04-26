@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tacos App</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" th:href="@{/css/invoice.css}">
+</head>
+<body>
+<nav>
+  <a th:href="@{/order/view-all(userId=${order.getUser().getId()})}" class="btn">Orders</a>
+</nav>
+<div class="main-container">
+  <h2>Thank you for your order!</h2>
+  <!-- HEADER -->
+  <header class="invoice-header">
+    <h3>Invoice</h3>
+    <div class="invoice-meta">
+      <div>
+        <strong>Order #:</strong>
+        <span th:text="${order.getId()}"></span>
+      </div>
+      <div>
+        <strong>Date:</strong>
+        <span th:text="${#dates.format(order.getDate(), 'MMMM d, yyyy h:mm a')}"></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CUSTOMER INFO (optional) -->
+  <section class="customer-info">
+    <h2>Customer</h2>
+    <p th:text="${order.getUser().getUsername()}"></p>
+    <!-- add email, address, etc. if you have them -->
+  </section>
+
+  <!-- ITEMS TABLE -->
+  <section class="invoice-items">
+    <table>
+      <thead>
+      <tr>
+        <th>Item</th>
+        <th class="text-center">Qty</th>
+        <th class="text-right">Unit Price</th>
+        <th class="text-right">Line Total</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="item : ${order.getOrderItems()}">
+        <td th:text="${item.getMenuItem().getName()}"></td>
+        <td class="text-center" th:text="${item.getQuantity()}"></td>
+        <td class="text-right"
+            th:text="${#numbers.formatDecimal(item.getMenuItem().getPrice(), 1, 2)}">
+        </td>
+        <td class="text-right"
+            th:text="${#numbers.formatDecimal(item.getTotalPrice(), 1, 2)}">
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="3" class="text-right"><strong>Total:</strong></td>
+        <td class="text-right"
+            th:text="${#numbers.formatDecimal(order.getTotalCost(), 1, 2)}">
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+  </section>
+</div>
+</body>
+</html>

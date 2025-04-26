@@ -34,7 +34,7 @@ public class Order {
         this.user = user;
         this.date = new Date();
         this.totalCost = 0;
-        this.status = false;
+        this.status = true;
         this.orderItems = new ArrayList<>();
     }
 
@@ -70,7 +70,7 @@ public class Order {
         this.orderItems = orderItems;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 

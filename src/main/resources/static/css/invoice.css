@@ -1,0 +1,151 @@
+nav {
+    width: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+nav a {
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.2s;
+}
+
+nav a:hover {
+    background-color: #0056b3;
+}
+
+.main-container > h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.75rem;
+    color: #444;
+}
+
+/* Invoice Header */
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+}
+
+.invoice-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+    color: #222;
+}
+
+.invoice-meta {
+    display: flex;
+    gap: 24px;
+}
+
+.invoice-meta div {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Customer Info */
+.customer-info {
+    margin-bottom: 24px;
+}
+
+.customer-info h2 {
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.customer-info p {
+    margin: 0;
+    font-size: 1rem;
+    color: #444;
+}
+
+/* Items Table */
+.invoice-items table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+}
+
+.invoice-items thead th {
+    background-color: #fafafa;
+    padding: 12px 8px;
+    border-bottom: 2px solid #ddd;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.invoice-items tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.invoice-items td {
+    padding: 12px 8px;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+/* Text Alignment Helpers */
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* Table Foot Total */
+.invoice-items tfoot td {
+    padding: 12px 8px;
+    border-top: 2px solid #ddd;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .invoice-header,
+    .invoice-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .invoice-items thead {
+        display: none;
+    }
+
+    .invoice-items tr {
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .invoice-items td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 4px;
+    }
+
+    .invoice-items td::before {
+        content: attr(data-label);
+        font-weight: 600;
+    }
+}

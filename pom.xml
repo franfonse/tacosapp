@@ -27,6 +27,7 @@
 		<url/>
 	</scm>
 	<properties>
+		<!-- setting java 21 for AWS (run 22 locally) -->
 		<java.version>22</java.version>
 	</properties>
 	<dependencies>

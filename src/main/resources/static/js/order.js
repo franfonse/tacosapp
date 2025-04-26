@@ -1,6 +1,9 @@
 window.addEventListener('DOMContentLoaded', () => {
     const deletePopup = document.getElementById('delete-popup');
     const editPopup = document.getElementById('edit-popup');
+    const checkoutPopup      = document.getElementById('checkout-popup');
+    const checkoutBtn        = document.getElementById('checkout-button');
+    const cancelCheckoutBtn  = document.getElementById('cancel-checkout');
     let selectedItemId = null;
     let selectedItemEl = null;
 
@@ -36,4 +39,17 @@ window.addEventListener('DOMContentLoaded', () => {
         editPopup.style.display = 'none';
         selectedItemId = null;
     });
+
+    // Open checkout popup
+    checkoutBtn.addEventListener('click', () => {
+        checkoutPopup.style.display = 'flex';
+        document.body.style.overflow  = 'hidden';
+    });
+
+    // Cancel checkout
+    cancelCheckoutBtn.addEventListener('click', () => {
+        checkoutPopup.style.display = 'none';
+        document.body.style.overflow  = 'auto';
+    });
+
 });

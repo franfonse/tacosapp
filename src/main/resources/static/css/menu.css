@@ -1,7 +1,16 @@
+nav {
+    width: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
 .back-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
+    display: inline-block;
     cursor: pointer;
     z-index: 1001;
     text-decoration: none;
@@ -17,18 +26,15 @@
 }
 
 .cart-link {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+    display: inline-block;
     cursor: pointer;
     z-index: 1001;
+    text-decoration: none;
 }
 
 .cart-icon-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
     font-size: 24px;
+    position: relative;
     transition: transform 0.2s ease;
 }
 
@@ -75,6 +81,7 @@
 }
 
 .menu-card {
+    cursor: pointer;
     width: 250px;
     height: 150px;
     border: 1px solid #ddd;
@@ -112,30 +119,103 @@
 .popup-overlay {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
+    backdrop-filter: blur(2px);
+    z-index: 1002;
     justify-content: center;
     align-items: center;
 }
 
 .popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 80%;
-    max-width: 500px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    width: 90%;
+    max-width: 360px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     position: relative;
+    animation: popupFadeIn 0.25s ease-out;
+    font-family: sans-serif;
 }
 
 .close-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 20px;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 18px;
     font-weight: bold;
+    border-radius: 50%;
+    background: #f5f5f5;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.close-btn:hover {
+    background: #e0e0e0;
+}
+
+/* ——— ITEM DETAILS CONTAINER ——— */
+#popup-item-details {
+    margin-bottom: 16px;
+}
+
+/* ——— QUANTITY CONTROLS ——— */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+}
+.quantity-controls label {
+    margin-right: 8px;
+    font-weight: 500;
+}
+.quantity-input {
+    width: 60px;
+    padding: 6px;
+    margin-right: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+}
+#total-price {
+    font-weight: 600;
+    margin-left: 12px;
+}
+
+/* ——— ADD TO CART BUTTON ——— */
+.add-to-cart-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.add-to-cart-btn:hover {
+    background: #218838;
+}
+
+/* ——— ENTRY ANIMATION ——— */
+@keyframes popupFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
