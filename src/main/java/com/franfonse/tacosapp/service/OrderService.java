@@ -2,14 +2,11 @@ package com.franfonse.tacosapp.service;
 
 import com.franfonse.tacosapp.model.Order;
 import com.franfonse.tacosapp.model.User;
-import com.franfonse.tacosapp.respository.OrderItemRepository;
-import com.franfonse.tacosapp.respository.OrderRepository;
-import com.franfonse.tacosapp.respository.UserRepository;
+import com.franfonse.tacosapp.repository.OrderRepository;
+import com.franfonse.tacosapp.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class OrderService {

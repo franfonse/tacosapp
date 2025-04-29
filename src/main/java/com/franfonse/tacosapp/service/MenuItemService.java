@@ -1,7 +1,7 @@
 package com.franfonse.tacosapp.service;
 
 import com.franfonse.tacosapp.model.MenuItem;
-import com.franfonse.tacosapp.respository.MenuItemRepository;
+import com.franfonse.tacosapp.repository.MenuItemRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 

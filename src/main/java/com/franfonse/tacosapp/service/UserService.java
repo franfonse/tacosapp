@@ -1,10 +1,9 @@
 package com.franfonse.tacosapp.service;
 
 import com.franfonse.tacosapp.model.User;
-import com.franfonse.tacosapp.respository.UserRepository;
+import com.franfonse.tacosapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.Optional;
 

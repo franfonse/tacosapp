@@ -1,4 +1,4 @@
-package com.franfonse.tacosapp.respository;
+package com.franfonse.tacosapp.repository;
 
 import com.franfonse.tacosapp.model.Category;
 import com.franfonse.tacosapp.model.MenuItem;
