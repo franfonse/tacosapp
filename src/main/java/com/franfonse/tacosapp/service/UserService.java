@@ -25,15 +25,15 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public User findOrCreateUsername(String username) {
-        return userRepository.findByUsername(username).orElseGet(() -> userRepository.save(new User(username)));
-    }
-
     public boolean validateUsernameFormat(String username) {
         return username.length() <= 60 && !username.contains(" ") && !Character.isDigit(username.charAt(0));
     }
 
     public String sanitizeUsername(String username){
         return username.toLowerCase();
+    }
+
+    public User createUser(String username, String encodedPassword) {
+        return userRepository.save(new User(username, encodedPassword));
     }
 }

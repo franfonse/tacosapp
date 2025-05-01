@@ -4,26 +4,27 @@
     <meta charset="UTF-8">
     <title>Tacos App</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <link rel="stylesheet" th:href="@{/css/user.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
 <div class="main-container">
     <div class="user-sign">
         <h1>To place an order, please first sign in/up</h1>
 
-        <form th:action="@{/user/sign}" method="get">
+        <form th:action="@{/user/login}" method="post">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
 
             <!-- Show error message if username is invalid -->
             <div th:if="${errorMessage}" class="error-message">
                 <p th:text="${errorMessage}"></p>
             </div>
 
-            <!--    <label for="name">Name (optional)</label>-->
-            <!--    <input type="text" id="name" name="name">-->
-
-            <button type="submit" class="btn-submit">Sign in/up</button>
+            <button type="submit" class="btn-submit">Log in</button>
+            <a th:href="@{/user/signup}" class="btn-signup">Sign up</a>
         </form>
     </div>
 </div>

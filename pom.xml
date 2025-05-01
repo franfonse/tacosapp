@@ -28,9 +28,14 @@
 	</scm>
 	<properties>
 		<!-- setting java 21 for AWS (run 24 locally) -->
-		<java.version>21</java.version>
+		<java.version>24</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
