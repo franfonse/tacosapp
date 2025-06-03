@@ -24,13 +24,8 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/login")
-    public String loginForm() {
-        return "login";
-    }
-
     @PostMapping("/login")
-    public String login(@RequestParam String username, Model model) {
+    public String login(@RequestParam String username, String password, Model model) {
 
         if (!userService.validateUsernameFormat(username)) {
             model.addAttribute("errorMessage", "Must start with a letter, contain only letters or numbers, and be less than 60 characters");
@@ -53,8 +48,13 @@ public class UserController {
         return "orders";
     }
 
+    @GetMapping("/login")
+    public String goLogin() {
+        return "login";
+    }
+
     @GetMapping("/signup")
-    public String signupForm() {
+    public String goSignup() {
         return "signup";
     }
 
@@ -71,8 +71,8 @@ public class UserController {
         String hash  = passwordEncoder.encode(password);
         userService.createUser(clean, hash);
 
-
-        return "redirect:/user/login?registered";
+        model.addAttribute("registered", "User registered successfully! Please, sign in with your credentials.");
+        return "login";
     }
 
     @GetMapping("/logout")

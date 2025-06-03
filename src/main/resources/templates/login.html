@@ -23,6 +23,10 @@
                 <p th:text="${errorMessage}"></p>
             </div>
 
+            <div th:if="${registered}" class="registered-message">
+                <p th:text="${registered}"></p>
+            </div>
+
             <button type="submit" class="btn-submit">Log in</button>
             <a th:href="@{/user/signup}" class="btn-signup">Sign up</a>
         </form>
